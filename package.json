@@ -1,18 +1,15 @@
 {
   "name": "hardskills-adesivos-dtf-uv",
-  "version": "1.0.0",
-  "description": "Gerador profissional de adesivos DTF UV para tecnologias e linguagens de programação",
-  "type": "module",
-  "main": "src/js/main.js",
+  "version": "1.1.0",
+  "description": "Gerador profissional de adesivos DTF UV para tecnologias e linguagens de programacao",
+  "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run build:css && vite build",
+    "build:css": "npx tailwindcss -i css/input.css -o css/tailwind.css --minify",
+    "watch:css": "npx tailwindcss -i css/input.css -o css/tailwind.css --watch",
     "preview": "vite preview",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "lint": "eslint src/**/*.js",
-    "format": "prettier --write \"src/**/*.{js,css,html}\"",
-    "docs": "jsdoc -c jsdoc.json"
+    "update-svg-list": "node generate-svg-list.cjs"
   },
   "keywords": [
     "adesivos",
@@ -26,28 +23,13 @@
   ],
   "author": "Felipe",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/seu-usuario/hardskills-adesivos.git"
-  },
-  "bugs": {
-    "url": "https://github.com/seu-usuario/hardskills-adesivos/issues"
-  },
-  "homepage": "https://github.com/seu-usuario/hardskills-adesivos#readme",
   "devDependencies": {
-    "@vitejs/plugin-legacy": "^5.0.0",
-    "eslint": "^8.56.0",
-    "jsdoc": "^4.0.2",
-    "prettier": "^3.2.4",
-    "vite": "^5.0.11",
-    "vitest": "^1.2.0",
-    "@vitest/ui": "^1.2.0"
-  },
-  "dependencies": {
-    "tailwindcss": "^3.4.1"
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.9",
+    "tailwindcss": "^3.4.1",
+    "vite": "^5.0.11"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
+    "node": ">=18.0.0"
   }
 }

@@ -7,43 +7,56 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <meta name="version" content="1.0.2">
+    <meta name="version" content="1.1.0">
     <title>HardSkills - Gerador de Adesivos DTF UV</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/input.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <!-- Sidebar -->
+    <!-- Skip Navigation (a11y) -->
+    <a href="#languagesContainer" class="skip-nav">Pular para conteúdo</a>
+
+    <!-- Sidebar Toggle (Mobile) -->
+    <button id="sidebarToggle" class="sidebar-toggle" aria-label="Abrir menu de configurações">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <!-- Sidebar Overlay (Mobile) -->
+    <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
     <div class="main-container">
-        <div class="sidebar">
+        <aside class="sidebar" role="complementary" aria-label="Configurações">
             <!-- Header -->
             <div class="header">
                 <h1 class="text-2xl font-bold text-white mb-1">HardSkills</h1>
-                <p class="text-xs text-gray-400">Gerador DTF UV 3D</p>
+                <p class="text-xs text-gray-300">Gerador DTF UV 3D</p>
             </div>
 
             <!-- Stats -->
-            <div class="config-section">
+            <div class="config-section" aria-live="polite" aria-atomic="true">
                 <div class="grid grid-cols-4 gap-2">
                     <div class="stat-card">
-                        <div class="text-xs text-gray-400">Únicos</div>
+                        <div class="text-xs text-gray-300">Únicos</div>
                         <div id="selectedIcons" class="text-lg font-bold text-primary">0</div>
                     </div>
                     <div class="stat-card">
-                        <div class="text-xs text-gray-400">Total</div>
+                        <div class="text-xs text-gray-300">Total</div>
                         <div id="totalStickers" class="text-lg font-bold text-primary">0</div>
                     </div>
                     <div class="stat-card">
-                        <div class="text-xs text-gray-400">P/Folha</div>
+                        <div class="text-xs text-gray-300">P/Folha</div>
                         <div id="maxFit" class="text-lg font-bold text-primary">48</div>
                     </div>
                     <div class="stat-card">
-                        <div class="text-xs text-gray-400">Folhas</div>
+                        <div class="text-xs text-gray-300">Folhas</div>
                         <div id="sheetsNeeded" class="text-lg font-bold text-primary">0</div>
                     </div>
                 </div>
@@ -51,10 +64,13 @@
 
             <!-- Preview -->
             <div class="config-section flex-1 flex flex-col">
-                <h3 class="text-sm font-bold text-gray-300 mb-3">Preview (Cores)</h3>
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-sm font-bold text-gray-300">Preview (Cores)</h3>
+                    <span class="text-xs text-gray-400" title="Passe o mouse sobre o preview para ampliar">&#128269; Lupa</span>
+                </div>
                 <div id="previewContainer" class="preview-box flex-1">
-                    <div class="text-gray-400 text-xs text-center italic">Selecione ícones</div>
-                    <div id="magnifier" class="magnifier-loupe"></div>
+                    <div class="text-gray-300 text-xs text-center italic">Clique nos ícones ao lado<br>para começar sua cartela</div>
+                    <div id="magnifier" class="magnifier-loupe" aria-hidden="true"></div>
                 </div>
             </div>
 
@@ -63,9 +79,9 @@
                 <h3 class="text-sm font-bold text-gray-300 mb-3">Configurações</h3>
                 <div class="space-y-3">
                     <div>
-                        <label class="text-xs text-gray-400 mb-1 block">Formato da Folha</label>
+                        <label for="paperFormat" class="text-xs text-gray-300 mb-1 block">Formato da Folha</label>
                         <div class="select-wrapper">
-                            <select id="paperFormat" onchange="handlePaperFormatChange()">
+                            <select id="paperFormat">
                                 <option value="210,297" selected>A4 (210x297mm)</option>
                                 <option value="148,210">A5 (148x210mm)</option>
                                 <option value="297,420">A3 (297x420mm)</option>
@@ -78,21 +94,21 @@
                     <div id="customPaperSize" style="display: none;">
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="text-xs text-gray-400 mb-1 block">Largura (mm)</label>
+                                <label for="customWidth" class="text-xs text-gray-300 mb-1 block">Largura (mm)</label>
                                 <input type="number" id="customWidth" min="50" max="1000" value="210"
-                                    class="search-input" onchange="updateStatsAndPreview()" placeholder="210">
+                                    class="search-input" placeholder="210">
                             </div>
                             <div>
-                                <label class="text-xs text-gray-400 mb-1 block">Altura (mm)</label>
+                                <label for="customHeight" class="text-xs text-gray-300 mb-1 block">Altura (mm)</label>
                                 <input type="number" id="customHeight" min="50" max="1000" value="297"
-                                    class="search-input" onchange="updateStatsAndPreview()" placeholder="297">
+                                    class="search-input" placeholder="297">
                             </div>
                         </div>
                     </div>
                     <div>
-                        <label class="text-xs text-gray-400 mb-1 block">Tamanho Adesivo</label>
+                        <label for="stickerSize" class="text-xs text-gray-300 mb-1 block">Tamanho Adesivo</label>
                         <div class="select-wrapper">
-                            <select id="stickerSize" onchange="updateStatsAndPreview()">
+                            <select id="stickerSize">
                                 <option value="10">10mm</option>
                                 <option value="15">15mm</option>
                                 <option value="20">20mm</option>
@@ -104,9 +120,9 @@
                         </div>
                     </div>
                     <div>
-                        <label class="text-xs text-gray-400 mb-1 block">Espaçamento</label>
+                        <label for="spacing" class="text-xs text-gray-300 mb-1 block">Espaçamento</label>
                         <div class="select-wrapper">
-                            <select id="spacing" onchange="updateStatsAndPreview()">
+                            <select id="spacing">
                                 <option value="5">5mm</option>
                                 <option value="10" selected>10mm</option>
                                 <option value="15">15mm</option>
@@ -114,9 +130,9 @@
                         </div>
                     </div>
                     <div>
-                        <label class="text-xs text-gray-400 mb-1 block">Forma</label>
+                        <label for="stickerShape" class="text-xs text-gray-300 mb-1 block">Forma</label>
                         <div class="select-wrapper">
-                            <select id="stickerShape" onchange="updatePreview()">
+                            <select id="stickerShape">
                                 <option value="circle" selected>Círculo</option>
                                 <option value="square">Quadrado</option>
                                 <option value="rounded">Arredondado</option>
@@ -124,30 +140,30 @@
                         </div>
                     </div>
                     <div>
-                        <label class="text-xs text-gray-400 mb-1 block">Fundo do Adesivo</label>
+                        <label for="stickerBackground" class="text-xs text-gray-300 mb-1 block" title="Cor de fundo atras do icone no adesivo">Fundo do Adesivo</label>
                         <div class="select-wrapper">
-                            <select id="stickerBackground" onchange="updateStatsAndPreview()">
-                                <option value="transparent" selected>Transparente</option>
-                                <option value="icon_color">Cor do Ícone</option>
+                            <select id="stickerBackground">
+                                <option value="transparent" selected>Transparente (sem fundo)</option>
+                                <option value="icon_color">Cor do Ícone (monocromático)</option>
                                 <option value="white">Branco</option>
                                 <option value="black">Preto</option>
-                                <option value="auto_contrast">Contraste Automático</option>
-                                <option value="complementary">Cor Complementar</option>
-                                <option value="light_pastel">Pastel Claro</option>
-                                <option value="dark_vibrant">Escuro Vibrante</option>
+                                <option value="auto_contrast">Contraste Auto (preto/branco)</option>
+                                <option value="complementary">Cor Complementar (oposta)</option>
+                                <option value="light_pastel">Pastel Claro (suave)</option>
+                                <option value="dark_vibrant">Escuro Vibrante (intenso)</option>
                             </select>
                         </div>
                     </div>
                     <div>
-                        <label class="text-xs text-gray-400 mb-1 block">Contorno</label>
+                        <label for="outlineStyle" class="text-xs text-gray-300 mb-1 block" title="Borda ao redor do icone para melhor contraste">Contorno</label>
                         <div class="select-wrapper">
-                            <select id="outlineStyle" onchange="updatePreview()">
+                            <select id="outlineStyle">
                                 <option value="none" selected>Sem Contorno</option>
-                                <option value="auto">Automático (Contraste)</option>
-                                <option value="double">Duplo (Preto + Branco)</option>
+                                <option value="auto">Auto (adapta ao fundo)</option>
+                                <option value="double">Duplo (preto + branco)</option>
                                 <option value="white">Branco</option>
                                 <option value="black">Preto</option>
-                                <option value="complementary">Complementar</option>
+                                <option value="complementary">Complementar (cor oposta)</option>
                             </select>
                         </div>
                     </div>
@@ -157,10 +173,10 @@
             <!-- Actions -->
             <div class="action-panel">
                 <div class="flex flex-col gap-2">
-                    <button id="generateBtn" onclick="generateFiles()" disabled class="btn btn-primary w-full">
+                    <button id="generateBtn" disabled class="btn btn-primary w-full">
                         Gerar Arquivos DTF UV
                     </button>
-                    <button onclick="clearSelection()" class="btn btn-secondary w-full">
+                    <button id="clearBtn" class="btn btn-secondary w-full">
                         Limpar Seleção
                     </button>
                 </div>
@@ -168,34 +184,35 @@
                     <span id="selectedCount">0</span> ícones selecionados
                 </p>
             </div>
-        </div>
+        </aside>
 
         <!-- Main Content -->
-        <div class="main-content">
+        <main class="main-content" role="main">
             <!-- Search and View Toggle -->
             <div class="mb-4 flex gap-3">
-                <input type="text" id="searchInput" onkeyup="filterLanguages()" class="search-input flex-1"
-                    placeholder="🔍 Buscar ícone...">
-                <div class="flex bg-[#1e1933] border border-[#2d2640] rounded-lg overflow-hidden">
-                    <button id="viewGrouped" onclick="toggleView('grouped')" class="px-4 py-2 text-xs font-semibold text-white bg-primary transition-colors">
+                <label for="searchInput" class="sr-only">Buscar ícone</label>
+                <input type="text" id="searchInput" class="search-input flex-1"
+                    placeholder="Buscar ícone...">
+                <div class="flex bg-[#1e1933] border border-[#2d2640] rounded-lg overflow-hidden" role="tablist" aria-label="Modo de visualização">
+                    <button id="viewGrouped" role="tab" aria-selected="true" class="px-4 py-2 text-xs font-semibold text-white bg-primary transition-colors">
                         Agrupado
                     </button>
-                    <button id="viewAll" onclick="toggleView('all')" class="px-4 py-2 text-xs font-semibold text-gray-400 hover:text-white transition-colors">
+                    <button id="viewAll" role="tab" aria-selected="false" class="px-4 py-2 text-xs font-semibold text-gray-400 hover:text-white transition-colors">
                         Todos
                     </button>
-                    <button id="viewLocal" onclick="toggleView('local')" class="px-4 py-2 text-xs font-semibold text-gray-400 hover:text-white transition-colors">
+                    <button id="viewLocal" role="tab" aria-selected="false" class="px-4 py-2 text-xs font-semibold text-gray-400 hover:text-white transition-colors">
                         Modelos Locais
                     </button>
                 </div>
             </div>
 
-            <!-- Info Compacto -->
+            <!-- Info -->
             <div class="bg-[#1e1933] border border-[#2d2640] rounded-lg p-4 mb-4">
                 <div class="flex items-center gap-2 mb-2">
-                    <span class="text-primary text-lg">ℹ️</span>
+                    <span class="text-primary text-lg" aria-hidden="true">&#8505;&#65039;</span>
                     <h3 class="text-sm font-bold text-white">DTF UV - Alto Relevo 3D</h3>
                 </div>
-                <p class="text-xs text-gray-400 leading-relaxed">
+                <p class="text-xs text-gray-300 leading-relaxed">
                     Gera 3 arquivos por folha: <strong class="text-white">CORES</strong> (CMYK colorido),
                     <strong class="text-white">BRANCO</strong> (camada base opaca) e
                     <strong class="text-white">VERNIZ</strong> (relevo UV 3D).
@@ -204,20 +221,26 @@
             </div>
 
             <!-- Icons Grid -->
-            <div id="languagesContainer"></div>
-        </div>
+            <div id="languagesContainer" role="tabpanel"></div>
+        </main>
     </div>
 
     <!-- Loading Overlay -->
-    <div id="loadingOverlay" class="loading-overlay">
+    <div id="loadingOverlay" class="loading-overlay" role="dialog" aria-modal="true" aria-label="Processando">
         <div class="bg-[#1e1933] border border-[#2d2640] rounded-xl p-8 text-center max-w-sm">
-            <div class="spinner mx-auto mb-4"></div>
+            <div class="spinner mx-auto mb-4" aria-hidden="true"></div>
             <h3 id="loadingText" class="text-white text-base font-bold mb-2">Baixando ícones...</h3>
-            <p id="loadingProgress" class="text-gray-400 text-sm"></p>
+            <p id="loadingProgress" class="text-gray-300 text-sm"></p>
         </div>
     </div>
 
-    <script src="js/script.js?v=1.0.2"></script>
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+    <script src="js/languages-data.js?v=1.1.0"></script>
+    <script src="js/colors.js?v=1.1.0"></script>
+    <script src="js/svg-generator.js?v=1.1.0"></script>
+    <script src="js/script.js?v=1.1.0"></script>
 </body>
 
 </html>

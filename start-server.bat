@@ -3,6 +3,9 @@ echo ========================================
 echo   HardSkills - Servidor Local
 echo ========================================
 echo.
+echo Atualizando lista de SVGs...
+node generate-svg-list.cjs
+echo.
 echo Iniciando servidor HTTP na porta 5173...
 echo.
 echo Acesse: http://localhost:5173

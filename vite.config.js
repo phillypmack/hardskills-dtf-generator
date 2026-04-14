@@ -2,13 +2,12 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 
 export default defineConfig({
-  root: 'src',
   build: {
-    outDir: '../dist',
+    outDir: 'dist',
     emptyOutDir: true,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'src/index.html')
+        main: resolve(__dirname, 'index.html')
       }
     },
     minify: 'terser',
@@ -26,13 +25,5 @@ export default defineConfig({
   preview: {
     port: 4173,
     open: true
-  },
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src'),
-      '@js': resolve(__dirname, './src/js'),
-      '@css': resolve(__dirname, './src/css'),
-      '@assets': resolve(__dirname, './src/assets')
-    }
   }
 });

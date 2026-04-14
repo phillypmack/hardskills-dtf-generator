@@ -43,6 +43,8 @@ O **HardSkills** é uma aplicação web que permite gerar arquivos SVG profissio
 ### 💡 Por que usar?
 
 - ✅ **800+ ícones** de tecnologias, linguagens e ferramentas
+- ✅ **424+ modelos SVG locais** - adicione quantos quiser à pasta `svg/`
+- ✅ **Carregamento dinâmico** - novos SVGs aparecem automaticamente
 - ✅ **Geração automática** das 3 camadas DTF UV
 - ✅ **Múltiplos formatos** de papel (A4, A5, A3, Carta, Ofício, Custom)
 - ✅ **Formas personalizáveis** (círculo, quadrado, arredondado)
@@ -94,6 +96,8 @@ O **HardSkills** é uma aplicação web que permite gerar arquivos SVG profissio
 - 🔐 Segurança & Auth
 - 📡 APIs & Messaging
 - 🎮 Game Development
+- 🎯 Jogos & Plataformas (24 ícones: Minecraft, Steam, PlayStation, Xbox, etc.)
+  - ⚠️ **Nota**: Simple Icons possui poucos jogos. Para adicionar mais games, veja [SOLUCAO-ICONES-GAMES.md](SOLUCAO-ICONES-GAMES.md)
 - 🔨 Build Tools
 - 🐳 Containers & Orchestration
 - 📊 Monitoring & Analytics
@@ -218,6 +222,32 @@ Envie os **3 arquivos** para a gráfica especializada em DTF UV e especifique:
 - Impressão CMYK (arquivo CORES)
 - Camada branca (arquivo BRANCO)
 - Verniz UV 3D (arquivo VERNIZ)
+
+---
+
+## 📂 Modelos Locais Dinâmicos
+
+### 🎯 Adicione Seus Próprios SVGs!
+
+A aplicação agora **detecta automaticamente** qualquer SVG adicionado à pasta `svg/`:
+
+#### Passo a Passo:
+
+1. **Adicione seu SVG** à pasta `svg/`:
+   ```
+   Cola/svg/MeuIcone.svg
+   ```
+
+2. **Atualize a lista**:
+   ```bash
+   npm run update-svg-list
+   ```
+   Ou simplesmente inicie o servidor com `start-server.bat` (atualiza automaticamente)
+
+3. **Pronto!** Acesse "Modelos Locais" e seus SVGs estarão lá! 🎉
+
+#### Documentação Completa:
+📖 Veja [COMO_ADICIONAR_NOVOS_SVGS.md](COMO_ADICIONAR_NOVOS_SVGS.md) para guia completo
 
 ---
 

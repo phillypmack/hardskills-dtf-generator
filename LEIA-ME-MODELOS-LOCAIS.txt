@@ -75,12 +75,25 @@ HTTP local, que simula um site rodando no seu computador.
 
 ✨ FUNCIONALIDADES DOS MODELOS LOCAIS
 
-✅ 401 modelos SVG disponíveis na pasta svg/
+✅ 424+ modelos SVG disponíveis na pasta svg/
+✅ NOVO: Adicione quantos SVGs quiser - detecção automática!
 ✅ Cores originais preservadas na camada CORES
 ✅ Geração automática das 3 camadas DTF UV
 ✅ Mesmo sistema de configuração dos ícones online
 ✅ Preview em tempo real
 ✅ Cálculo automático de folhas necessárias
+
+───────────────────────────────────────────────────────────────
+
+🆕 COMO ADICIONAR NOVOS SVGS
+
+1. Copie seu arquivo .svg para a pasta svg/
+2. Execute: npm run update-svg-list
+   (ou inicie com start-server.bat que atualiza automaticamente)
+3. Recarregue a página
+4. Seus SVGs aparecerão em "Modelos Locais"!
+
+📖 Veja COMO_ADICIONAR_NOVOS_SVGS.md para mais detalhes
 
 ───────────────────────────────────────────────────────────────
 
