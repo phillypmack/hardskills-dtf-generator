@@ -1,0 +1,7 @@
+services:
+  hardskills:
+    build: .
+    container_name: hardskills-dtf
+    ports:
+      - "8090:80"
+    restart: unless-stopped
